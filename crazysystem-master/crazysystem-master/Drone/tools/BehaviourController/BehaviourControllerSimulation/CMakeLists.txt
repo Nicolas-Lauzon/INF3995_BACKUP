@@ -1,0 +1,8 @@
+set(BehaviourControllerSimulation_SOURCES
+BehaviourControllerSimulation.h
+BehaviourControllerSimulation.cpp)
+add_library(BehaviourControllerSimulation SHARED ${BehaviourControllerSimulation_SOURCES})
+target_link_libraries(BehaviourControllerSimulation
+    argos3core_simulator
+    argos3plugin_simulator_crazyflie
+    argos3plugin_simulator_genericrobot)

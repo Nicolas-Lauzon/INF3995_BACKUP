@@ -1,0 +1,6 @@
+include_directories(${CMAKE_SOURCE_DIR}/controllers)
+add_subdirectory(crazyflieSim)
+add_subdirectory(crazyflieTest/crazyflieReturnToBase)
+add_subdirectory(crazyflieTest/crazyflieTakeOff)
+add_subdirectory(crazyflieTest/crazyflieLand)
+add_subdirectory(crazyflieTest/crazyflieExplore)

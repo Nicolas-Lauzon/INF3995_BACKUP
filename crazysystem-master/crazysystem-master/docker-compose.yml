@@ -1,0 +1,67 @@
+services:
+    simulation:
+        network_mode: host
+        container_name: crazysystem_simulation
+        image: crazysystem_simulation
+        build:
+            context: .
+            dockerfile: ./Drone/Dockerfile
+            args:
+                FILES_TO_COPY_SIM: Drone/sim
+                FILES_TO_COPY_LIBRARY: Drone/tools
+
+    droneSTM32:
+        network_mode: host
+        container_name: crazysystem_drone_stm32
+        image: crazysystem_drone_stm32
+        build:
+            context: .
+            dockerfile: ./Drone/embedded/stm32/Dockerfile
+
+    droneNRF:
+        network_mode: host
+        container_name: crazysystem_drone_nrf
+        image: crazysystem_drone_nrf
+        build:
+            context: .
+            dockerfile: ./Drone/embedded/nrf/Dockerfile
+
+    client:
+        network_mode: host 
+        container_name: crazysystem_client
+        image: crazysystem_client
+        build:
+            context: .
+            dockerfile: ./Client/Dockerfile.client
+            args:
+                FILES_TO_COPY: Client/crazyview
+
+    clientTest:
+        network_mode: host 
+        container_name: crazysystem_client_test
+        image: crazysystem_client_test
+        build:
+            context: .
+            dockerfile: ./Client/Dockerfile.test
+            args:
+                FILES_TO_COPY: Client/crazyview
+
+    server:
+        network_mode: host
+        container_name: crazysystem_server
+        image: crazysystem_server
+        build:
+            context: .
+            dockerfile: ./Server/Dockerfile.server
+            args:
+                FILES_TO_COPY: Server/src
+
+    serverTest:
+        network_mode: host
+        container_name: crazysystem_server_test
+        image: crazysystem_server_test
+        build:
+            context: .
+            dockerfile: ./Server/Dockerfile.test
+            args:
+                FILES_TO_COPY: Server/src

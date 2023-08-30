@@ -1,0 +1,18 @@
+FROM node:10-alpine
+LABEL client.version="0.1"
+
+# Install angular version 11.1.2
+RUN npm install -g @angular/cli@11.1.2
+
+ARG FILES_TO_COPY
+
+# Copy all front-end files
+COPY ${FILES_TO_COPY} /crazyview
+
+WORKDIR /crazyview
+
+# Install of dependencies
+RUN npm install
+
+# Start app on 0.0.0.0 (localhost)
+CMD ng serve --host 0.0.0.0

@@ -1,0 +1,45 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+Server/src/cache
+*.py[cod]
+*.log
+*.csv
+Server/src/logs/*.csv
+
+# C extensions
+*.so
+*.bin
+*.dfu
+*.elf
+*.hex
+*.map
+*.mk
+
+# Distribution / packaging
+bin/
+build/
+develop-eggs/
+dist/
+eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Installer logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+
+# vscode
+*.vscode

@@ -1,0 +1,120 @@
+<?xml version="1.0" ?>
+
+<!-- *************************************************** -->
+<!-- * A fully commented XML is diffusion_1.xml. Refer * -->
+<!-- * to it to have full information about what       * -->
+<!-- * these options mean.                             * -->
+<!-- *************************************************** -->
+
+<argos-configuration>
+
+    <!-- ************************* -->
+    <!-- * General configuration * -->
+    <!-- ************************* -->
+    <framework>
+        <system threads="4" />
+        <experiment length="0"
+                    ticks_per_second="20"
+                    random_seed="0" />
+    </framework>
+
+    <!-- *************** -->
+    <!-- * Controllers * -->
+    <!-- *************** -->
+    <controllers>
+        <crazyflie_take_off id="c1" library="build/controllers/crazyflieTest/crazyflieTakeOff/libcrazyflieTakeOff">
+            <actuators>
+                <range_and_bearing  implementation="default" />
+                <quadrotor_position implementation="default" />
+            </actuators>
+            <sensors>
+                <range_and_bearing implementation="medium" medium="rab" show_rays="false" />
+                <crazyflie_distance_scanner implementation="rot_z_only"  show_rays="true" />
+                <positioning implementation="default"/>
+                <battery implementation="default"/>
+            </sensors>
+            <params>
+            </params>
+        </crazyflie_take_off>
+
+    </controllers>
+
+    <!-- *********************** -->
+    <!-- * Arena configuration * -->
+    <!-- *********************** -->
+    <arena size="10, 10, 4" center="0,0,0">
+        <distribute>
+            <position method="uniform" min="-3,3,1" max="3,3,1" />
+            <orientation method="uniform" min="0,0,0" max="0,0,0" />
+            <entity quantity="1" max_trials="100">
+                <crazyflie id="1">
+                <controller config="c1" />
+                <battery model="time_motion" delta="1e-4" pos_delta="1e-4"  orient_delta="1e-4"/>
+                </crazyflie>
+            </entity>
+        </distribute>
+        <distribute>
+            <position method="uniform" min="-3,-3,1" max="3,-3,1" />
+            <orientation method="uniform" min="0,0,0" max="0,0,0" />
+            <entity quantity="1" max_trials="100">
+                <crazyflie id="2">
+                <controller config="c1" />
+                <battery model="time_motion" delta="1e-4" pos_delta="1e-4"  orient_delta="1e-4"/>
+                </crazyflie>
+            </entity>
+        </distribute>
+        <distribute>
+            <position method="uniform" min="3,-3,1" max="3,3,1" />
+            <orientation method="uniform" min="0,0,0" max="0,0,0" />
+            <entity quantity="1" max_trials="100">
+                <crazyflie id="3">
+                <controller config="c1" />
+                <battery model="time_motion" delta="1e-4" pos_delta="1e-4"  orient_delta="1e-4"/>
+                </crazyflie>
+            </entity>
+        </distribute>
+        <distribute>
+            <position method="uniform" min="-3,-3,1" max="-3,3,1" />
+            <orientation method="uniform" min="0,0,0" max="0,0,0" />
+            <entity quantity="1" max_trials="100">
+                <crazyflie id="4">
+                <controller config="c1" />
+                <battery model="time_motion" delta="1e-4" pos_delta="1e-4"  orient_delta="1e-4"/>
+                </crazyflie>
+            </entity>
+        </distribute>
+
+
+        
+    </arena>
+
+    <!-- ******************* -->
+    <!-- * Physics engines * -->
+    <!-- ******************* -->
+    <physics_engines>
+        <pointmass3d id="pm3d" />
+        <dynamics2d id="dyn2d" />
+    </physics_engines>
+
+    <!-- ********* -->
+    <!-- * Media * -->
+    <!-- ********* -->
+    <media>
+        <range_and_bearing id="rab" />
+        <led id="leds" />
+    </media>
+
+    <!-- ****************** -->
+    <!-- * Visualization * -->
+    <!-- ****************** -->
+    <visualization>
+        <qt-opengl>
+            <camera>
+                <placements>
+                    <placement index="0" position="0,0,18" look_at="0,0,0" up="0,1,0" lens_focal_length="40" />
+                </placements>
+            </camera>
+        </qt-opengl>
+    </visualization>
+
+</argos-configuration>

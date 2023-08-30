@@ -1,0 +1,20 @@
+.help-text {
+    color: rgb(170, 170, 170);
+    font-size: 12px;
+    text-align: justify;
+}
+
+.error-message {
+    color: red;
+}
+
+.text-boxes {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+}
+
+.full-length {
+    width: 100%;
+}

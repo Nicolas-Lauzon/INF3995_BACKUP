@@ -1,0 +1,29 @@
+FROM ubuntu:18.04
+LABEL clienttest.version="0.1"
+
+RUN apt-get update && apt-get upgrade -y && \
+    apt-get install -y \
+    curl \
+    gnupg \
+    firefox
+
+# Install nodejs lastest version
+RUN curl -sL https://deb.nodesource.com/setup_12.x  | bash -
+
+RUN apt-get -y install nodejs
+
+# Install angular version 11.1.2
+RUN npm install -g @angular/cli@11.1.2
+
+ARG FILES_TO_COPY
+
+# Copy all front-end files
+COPY ${FILES_TO_COPY} /crazyview
+
+WORKDIR /crazyview
+
+# Install of dependencies
+RUN npm install
+
+# Start tests
+CMD ng test

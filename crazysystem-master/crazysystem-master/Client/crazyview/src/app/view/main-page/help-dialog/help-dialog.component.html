@@ -1,0 +1,23 @@
+<h1 mat-dialog-title>Aide</h1>
+<div mat-dialog-content>
+    <p>
+        Bienvenue sur l'interface web de notre système d'exploration. Pour commencer à utiliser l'exploration, il suffit
+        de connecter les drones grâce au bouton <b>Connecter les drones</b>, et suivre les instructions qui y sont 
+        écrites. 
+    </p>
+    <p>
+        Afin de faire fonctionner notre système correctement, avant de commencer la mission, il faut s'assurer que les 
+        drones sont bien tous posés sur le sol et qu'ils regardent tous dans la même direction. Placez d'abord le 
+        premier drone, puis le deuxième 50 cm à droite du premier, puis faire de même avec chaque drone suivant (le 3e 
+        50 cm à droite du 2e et ainsi de suite).
+    </p>
+</div>
+<div mat-dialog-actions>
+    <button
+        mat-raised-button
+        color="primary"
+        (click)="close()"
+    >
+        Fermer
+    </button>
+</div>

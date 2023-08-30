@@ -1,0 +1,19 @@
+.main-content {
+    margin: 2%;
+    margin-top: 4px;
+}
+
+app-drone-info, app-map, table, mat-card-content, mat-card {
+    width: 100%;
+    max-width: 500px;
+    text-align: center;
+    table-layout: fixed ;
+}
+
+.cell {
+    margin: 4px;
+}
+.command-button {
+    width: 100%;
+    white-space: normal;
+}

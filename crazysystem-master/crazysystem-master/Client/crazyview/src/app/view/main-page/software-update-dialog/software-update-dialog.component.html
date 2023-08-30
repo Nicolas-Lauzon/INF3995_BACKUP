@@ -1,0 +1,52 @@
+<h1 mat-dialog-title>Mise a jour logicielle</h1>
+<div mat-dialog-content>
+    <p class="help-text">
+        Pour effectuer une mise à jour d'un drone, il vous suffit d'entrer sont ID et le chemin vers le fichier binaire
+        à téléverser sur le drone. Il faut s'assurer que le drone a déjà une version antérieur du code, sinon le 
+        téléversement ne peut pas marcher.
+    </p>
+    <p class="help-text">
+        NB: L'id correspond à l'ordre dans lequel vous avez allumé les drones. Par exemple, si le troisième drone que 
+        vous avez allumé est celui que vous voulez mettre à jour, mettez 3 dans la case ci-dessous.
+    </p>
+    <p>Veuillez entrer l'ID du drone à mettre à jour</p>
+    <div class="text-boxes">
+        <mat-form-field class="full-length">
+            <input
+                matInput
+                type="number"
+                min="1"
+                max="99"
+                [(ngModel)]="data.droneId"
+            >
+        </mat-form-field>
+        <p>Veuillez entrer le chemin du fichier binaire à téléverser</p>
+        <mat-form-field class="full-length">
+            <input
+                matInput
+                type="string"
+                [(ngModel)]="data.file"
+            >
+            <span matPrefix>/home</span>
+            <span matSuffix>.bin</span>
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button
+        mat-button
+        [disabled]="isLoading"
+        (click)="close()"
+    >
+        Annuler
+    </button>
+    <button 
+        mat-button
+        [disabled]="data.droneId < 1 || data.droneId > 99 || !data.droneId || !data.file || isLoading"
+        (click)="confirmClicked()"
+    >
+        Confirmer
+    </button>
+    <mat-spinner *ngIf="isLoading" diameter="36"></mat-spinner>
+    <p class="error-message" *ngIf="errorDuringConnection">Erreur dans la mise à jour.</p>
+</div>

@@ -1,0 +1,4 @@
+include_directories(${CMAKE_SOURCE_DIR}/tools)
+add_subdirectory(BehaviourController/BehaviourController)
+add_subdirectory(BehaviourController/BehaviourControllerSimulation)
+

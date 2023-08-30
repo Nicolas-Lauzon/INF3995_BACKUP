@@ -1,0 +1,36 @@
+<h1 mat-dialog-title>Connexion des drones</h1>
+<div mat-dialog-content>
+    <p class="help-text">
+        Pour connecter les drones, assurez-vous qu'ils sont disposés de la manière décrite dans l'aide de la page 
+        principale.<br>
+        Ensuite, il faut allumer les drones de la manière suivante: Allumez le premier drone, et attendez 
+        que les DELs s'allument pendant quelques secondes <b>PUIS</b> s'éteignent. Ensuite, vous pouvez allumer le deuxième. 
+        De même pour le deuxième, vous devez attendre les les DELs s'allument puis s'éteignent pour allumer le 
+        troisième, et ainsi de suite pour tous les drones que vous voulez connecter. Quand ils sont tous allumé et que
+        leurs LEDs clignotent, vous pouvez entrer le nombre de drones dans la case ci-dessous.
+    </p>
+    <p>Veuillez entrer le nombre de drones à connecter (entre 2 et 99)</p>
+    <div class="text-box">
+        <mat-form-field>
+            <input matInput type="number" min="2" max="99" [(ngModel)]="data.numberOfDrones">
+        </mat-form-field>
+    </div>
+</div>
+<div mat-dialog-actions>
+    <button
+        mat-button
+        (click)="close()"
+        [disabled]="isLoading"
+    >
+        Annuler
+    </button>
+    <button 
+        mat-button
+        [disabled]="data.numberOfDrones < 2 || data.numberOfDrones > 99 || !data.numberOfDrones || isLoading"
+        (click)="confirmClicked()"
+    >
+        Confirmer
+    </button>
+    <mat-spinner *ngIf="isLoading" diameter="36"></mat-spinner>
+    <p class="error-message" *ngIf="errorDuringConnection">Erreur dans la connection.</p>
+</div>

@@ -1,0 +1,27 @@
+FROM ubuntu:18.04
+LABEL server.version="0.1"
+
+# Install common dependencies
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    software-properties-common \
+    python3.8 \
+    python3-pip \
+    sudo \
+    usbutils \
+    && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Copy python requirements file for pip installs
+COPY Server/requirements.txt .
+
+RUN pip3 install --upgrade pip && \
+    pip3 install nibabel pydicom matplotlib pillow pip setuptools && \
+    pip3 install -r requirements.txt
+
+# copies all files needed for the server to work
+ARG FILES_TO_COPY
+
+COPY ${FILES_TO_COPY} /root/src
+
+ENTRYPOINT ["stdbuf", "-oL", "python3", "-u", "/root/src/server.py"]

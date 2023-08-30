@@ -1,0 +1,154 @@
+<?xml version="1.0" ?>
+
+<!-- *************************************************** -->
+<!-- * A fully commented XML is diffusion_1.xml. Refer * -->
+<!-- * to it to have full information about what       * -->
+<!-- * these options mean.                             * -->
+<!-- *************************************************** -->
+
+<argos-configuration>
+
+    <!-- ************************* -->
+    <!-- * General configuration * -->
+    <!-- ************************* -->
+    <framework>
+        <system threads="4" />
+        <experiment length="0"
+                    ticks_per_second="20"
+                    random_seed="0" />
+    </framework>
+
+    <!-- *************** -->
+    <!-- * Controllers * -->
+    <!-- *************** -->
+    <controllers>
+        <crazyflie_explore id="c1" library="build/controllers/crazyflieTest/crazyflieExplore/libcrazyflieExplore">
+            <actuators>
+                <range_and_bearing  implementation="default" />
+                <quadrotor_position implementation="default" />
+            </actuators>
+            <sensors>
+                <range_and_bearing implementation="medium" medium="rab" show_rays="false" />
+                <crazyflie_distance_scanner implementation="rot_z_only"  show_rays="true" />
+                <positioning implementation="default"/>
+                <battery implementation="default"/>
+            </sensors>
+            <params>
+            </params>
+        </crazyflie_explore>
+
+    </controllers>
+
+    <!-- *********************** -->
+    <!-- * Arena configuration * -->
+    <!-- *********************** -->
+    <arena size="10, 10, 5" center="0,0,0">
+        <box id="wall_north" size="9.7,0.1,2" movable="false">
+            <body position="0,4.8,0" orientation="0,0,0" />
+        </box>
+        <box id="wall_south" size="9.7,0.1,2" movable="false">
+            <body position="0,-4.8,0" orientation="0,0,0" />
+        </box>
+        <box id="wall_east" size="0.1,9.7,2" movable="false">
+            <body position="4.8,0,0" orientation="0,0,0" />
+        </box>
+        <box id="wall_west" size="0.1,9.7,2" movable="false">
+            <body position="-4.8,0,0" orientation="0,0,0" />
+        </box>
+
+        <distribute>
+            <position method="uniform" min="-1,-1,1" max="1,1,1" />
+            <orientation method="uniform" min="0,0,0" max="0,0,0" />
+            <entity quantity="4" max_trials="100">
+                <crazyflie id="drone1">
+                <controller config="c1" />
+                <battery model="time_motion" delta="1e-4" pos_delta="1e-4"  orient_delta="1e-4"/>
+                </crazyflie>
+            </entity>
+        </distribute>
+        <!-- Generate two cylinders on left -->
+        <distribute>
+            <position method="uniform" min="-4,-4,0" max="-1,4,0" />
+            <orientation method="constant" values="0,0,0" />
+            <entity quantity="2" max_trials="100">
+                <cylinder id="cylinderLeft" height="4" radius="0.2" movable="false" />
+            </entity>
+        </distribute>
+
+        <!-- Generate two cylinders on right -->
+        <distribute>
+            <position method="uniform" min="1,-4,0" max="4,4,0" />
+            <orientation method="constant" values="0,0,0" />
+            <entity quantity="2" max_trials="100">
+                <cylinder id="cylinderRight" height="4" radius="0.2" movable="false" />
+            </entity>
+        </distribute>
+
+        <!-- Generate two box on bottom -->
+        <distribute>
+            <position method="uniform" min="-4,-4,0" max="4,-1,0" />
+            <orientation method="uniform" min="0,0,0" max="360,0,0" />
+            <entity quantity="2" max_trials="100">
+                <box id="boxBottom" size="0.4,0.8,4" movable="false" />
+            </entity>
+        </distribute>
+
+        <!-- Generate two box on top -->
+        <distribute>
+            <position method="uniform" min="-4,1,0" max="4,4,0" />
+            <orientation method="uniform" min="0,0,0" max="360,0,0" />
+            <entity quantity="2" max_trials="100">
+                <box id="boxTop" size="0.4,0.8,4" movable="false" />
+            </entity>
+        </distribute>
+
+        <!-- Generate one wall on left -->
+        <distribute>
+            <position method="uniform" min="-5,-5,0" max="-2,5,0" />
+            <orientation method="uniform" min="0,0,0" max="360,0,0" />
+            <entity quantity="1" max_trials="100">
+                <box id="wallLeft" size="0.1,2,2" movable="false"/>
+            </entity>
+        </distribute>
+
+        <!-- Generate one wall on right -->
+        <distribute>
+            <position method="uniform" min="2,-5,0" max="5,5,0" />
+            <orientation method="uniform" min="0,0,0" max="360,0,0" />
+            <entity quantity="1" max_trials="100">
+                <box id="wallRight" size="0.1,2,2" movable="false"/>
+            </entity>
+        </distribute>
+        
+    </arena>
+
+    <!-- ******************* -->
+    <!-- * Physics engines * -->
+    <!-- ******************* -->
+    <physics_engines>
+        <pointmass3d id="pm3d" />
+        <dynamics2d id="dyn2d" />
+    </physics_engines>
+
+    <!-- ********* -->
+    <!-- * Media * -->
+    <!-- ********* -->
+    <media>
+        <range_and_bearing id="rab" />
+        <led id="leds" />
+    </media>
+
+    <!-- ****************** -->
+    <!-- * Visualization * -->
+    <!-- ****************** -->
+    <visualization>
+        <qt-opengl>
+            <camera>
+                <placements>
+                    <placement index="0" position="0,0,18" look_at="0,0,0" up="0,1,0" lens_focal_length="40" />
+                </placements>
+            </camera>
+        </qt-opengl>
+    </visualization>
+
+</argos-configuration>

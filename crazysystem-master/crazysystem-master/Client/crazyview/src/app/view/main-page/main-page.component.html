@@ -1,0 +1,92 @@
+<mat-toolbar fxLayoutAlign="center center">Crazyview</mat-toolbar>
+
+<div class="main-content" fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="4px">
+    <button
+        mat-raised-button
+        color="warn"
+        matTooltip="Ouvrir l'aide"
+        matTooltipPosition="after"
+        (click)="openHelp()"
+    >
+        Aide
+        <mat-icon>help_outline</mat-icon>
+    </button>
+    <app-drone-info (newDronesInfoEvent)="updateButtonEnabling($event)"></app-drone-info>
+    <div fxLayout="row" fxLayoutGap="20px">
+        <button
+            mat-raised-button
+            color= "primary"
+            (click)="openConnectDrones()"
+            [disabled]="disableConnection"
+        >
+            Connecter les drones
+        </button>
+    </div>
+
+    <table>
+        <tr>
+            <td>
+                <button
+                    class="command-button"
+                    mat-raised-button
+                    color="primary"
+                    (click)="takeOffDrone()"
+                    [disabled]="!takeOffEnable"
+                >
+                    Decoller / Commencer la mission
+                </button>
+            </td>
+            <td>
+                <button
+                    class="command-button"
+                    mat-raised-button
+                    color="primary"
+                    (click)="landDrone()"
+                    [disabled]="!landReturnEnable"
+                >
+                    Atterir / Finir la mission
+                </button>
+            </td>
+        </tr>
+        <tr>
+            <td>
+                <button
+                    class="command-button"
+                    mat-raised-button color="primary"
+                    (click)="softwareDialog()"
+                    [disabled]="!updateEnable"
+                >
+                    Mise a jour logicielle
+                </button>
+            </td>
+            <td>
+                <button
+                    class="command-button"
+                    mat-raised-button
+                    color="primary"
+                    (click)="returnToBase()"
+                    [disabled]="!landReturnEnable"
+                >
+                    Revenir a la base
+                </button>
+            </td>
+        </tr>
+    </table>  
+
+    <app-map></app-map>
+
+    <button mat-raised-button color="primary" (click)="this.logsEnabled = !this.logsEnabled;">
+        Afficher les logs
+    </button>
+
+    <mat-card fxLayout="column" fxLayoutAlign="center center" *ngIf="logsEnabled">
+        <mat-card-title>Logs</mat-card-title>
+        <mat-card-content [style.overflow]="'auto'" [style.height.px]="'300'">
+            <table >
+                <tr *ngFor="let log of logs">
+                    <td>{{log}}</td>
+                </tr>
+            </table>
+        </mat-card-content>
+    </mat-card>
+</div>
